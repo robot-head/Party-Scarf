@@ -46,7 +46,7 @@ float bpmAvg = 120.0;
 
 void setup() {
   //FastLED.addLeds<CHIPSET, LED_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
-  LEDS.addLeds<CHIPSET, LED_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS); 
+  LEDS.addLeds<CHIPSET, LED_PIN, CLOCK_PIN, COLOR_ORDER>(leds, NUM_LEDS);
   FastLED.setBrightness(brightness_values[brightness]);
   button1.setDebounceDelay(50);
   button2.setDebounceDelay(50);
@@ -62,42 +62,15 @@ void loop()
   button1.listen();
   button2.listen();
 
-  if (button1.onRelease()) {
-    if (!button1Held) {
-      changePattern();
-      FastLED.setBrightness(brightness_values[brightness % num_bright]);
-      } else {
-        button1Held = false;
-      }
-    }
+  if (button1.onPress()) {
+    changePattern();
+  }
+  if (button2.onPress()) {
+    changeBrightness();
+  }
 
-    if (button1.isHold()) {
-
-      button1Held = true;
-      if (millis() - button1timer > BRIGHT_HOLD_DELAY) {
-        button1timer = millis();
-        changeBrightness();
-      }
-    }
-
-    if (button2.onRelease()) {
-      if(!button2Held) {
-        tapTempo();
-        } else {
-          button2Held = false;
-        }
-      }
-
-      if (button2.isHold()) {
-        button2Held = true;
-        if (millis() - button2timer > 300) {
-          button2timer = millis();
-          changeSpeed();
-        }
-      }
-
-
-      patterns[current_pattern % num_patterns]();
+  FastLED.setBrightness(brightness_values[brightness % num_bright]);
+  patterns[current_pattern % num_patterns]();
 
   FastLED.show(); // display this frame
 }
@@ -121,7 +94,7 @@ void wipe() {
 
 #define marquee_skip 4
 float start_led = 0.0;
-void marquee() { 
+void marquee() {
   int s = start_led;
   for (int i = (s % marquee_skip); i < NUM_LEDS; i = i + marquee_skip) {
     leds[i] = CRGB::WhiteSmoke;
