@@ -8,8 +8,20 @@
 #define CHIPSET     APA102
 #define NUM_LEDS    48
 
-#define BRIGHTNESS  120
-#define FRAMES_PER_SECOND 200
+#define BRIGHTNESS  5
+#define FRAMES_PER_SECOND 20
+
+// set to false if using a common cathode LED
+#define commonAnode true
+
+// our RGB -> eye-recognized gamma color
+byte gammatable[256];
+
+
+Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_50MS, TCS34725_GAIN_4X);
+
+
+
 
 CRGB leds[NUM_LEDS];
 uint8_t wheelpos = 0;
@@ -18,8 +30,9 @@ unsigned long last_time;
 
 #define NUM_PATTERNS 2
 
+
 void fast_rainbow() {
-  fill_rainbow(leds, NUM_LEDS, wheelpos, 2);
+fill_rainbow(leds, NUM_LEDS, wheelpos, 2);
   wheelpos++;
   FastLED.delay(1000 / 200);
 }
@@ -48,7 +61,8 @@ void loop()
   time = millis();
   // Add entropy to random number generator; we use a lot of it.
   // random16_add_entropy( random());
-  if (((time - last_time) / 1000) > 3) {
+  if (((time - last_time) / 3) > 1000) {
+
     pn++;
     if (pn > NUM_PATTERNS) {
       pn = 0;

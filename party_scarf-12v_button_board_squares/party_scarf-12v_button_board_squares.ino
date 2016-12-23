@@ -1,13 +1,13 @@
 #include <FastLED.h>
 #include <Button.h>
 
-#define LED_PIN     13
-#define CLOCK_PIN   12
-#define BUTTON_1    2
-#define BUTTON_2    3
+#define LED_PIN     5
+#define CLOCK_PIN   4
+#define BUTTON_1    3
+#define BUTTON_2    2
 #define COLOR_ORDER GBR
-#define CHIPSET     WS2801
-#define NUM_LEDS    55
+#define CHIPSET    WS2801
+#define NUM_LEDS    24
 
 #define BRIGHTNESS  100
 #define FRAMES_PER_SECOND 20

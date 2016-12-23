@@ -7,7 +7,7 @@
 #define BUTTON_2    3
 #define COLOR_ORDER GBR
 #define CHIPSET     WS2801
-#define NUM_LEDS    55
+#define NUM_LEDS    48
 
 #define BRIGHTNESS  100
 #define FRAMES_PER_SECOND 20
